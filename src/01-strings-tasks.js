@@ -64,7 +64,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  return value.slice(0, 7);
+  return value.slice(7, -1);
 }
 
 /**
@@ -123,9 +123,8 @@ function repeatString(value, count) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(str, value) {
-  const res = value + str;
-  return res;
+function removeFirstOccurrences(/* str, value */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -140,13 +139,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-  let result = '';
-  for (let i = 0; i < str.length; i += 1) {
-    if (str[i] !== '<' || str[i] !== '>') {
-      result += str[i];
-    }
-  }
-  return result;
+  return str.slice(1, -1);
 }
 
 /**
@@ -178,8 +171,8 @@ function convertToUpperCase(str) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(str) {
-  return str;
+function extractEmails(/* str */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -205,9 +198,8 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(width, height) {
-  const figure = width + height;
-  return figure;
+function getRectangleString(/* width, height */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -226,9 +218,8 @@ function getRectangleString(width, height) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(str) {
-  const res = str + 1;
-  return res;
+function encodeToRot13(/* str */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -244,9 +235,8 @@ function encodeToRot13(str) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(value) {
-  const res = 1 + value;
-  return res;
+function isString(/* value */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -273,9 +263,8 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(value) {
-  const res = value + 1;
-  return res;
+function getCardId(/* value */) {
+  throw new Error('Not implemented');
 }
 
 module.exports = {
