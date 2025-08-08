@@ -41,8 +41,12 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  let result = 1;
+  for (let i = 1; i <= n; i += 1) {
+    result *= i;
+  }
+  return result;
 }
 
 /**
@@ -57,8 +61,12 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let result = 0;
+  for (let i = n1; i <= n2; i += 1) {
+    result += i;
+  }
+  return result;
 }
 
 /**
@@ -76,8 +84,15 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  if (a + b > c) {
+    if (a + c > b) {
+      if (c + b > a) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 /**
@@ -142,8 +157,12 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const Point = Math.sqrt(point.x ** 2 + point.y ** 2);
+  if (Point === circle.radius) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -199,8 +218,12 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  let result = '';
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    result += str[i];
+  }
+  return result;
 }
 
 /**
@@ -215,8 +238,29 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  let count;
+  let positiveN;
+  if (num < 0) {
+    count = 1;
+    positiveN = Math.abs(num);
+  } else {
+    count = 0;
+    positiveN = num;
+  }
+  const array = positiveN.toString().split('').reverse();
+  const string = array.toString();
+  let newString = '';
+  for (let i = 0; i < string.length; i += 1) {
+    if (string[i] !== ',') {
+      newString += string[i];
+    }
+  }
+  const number = Number(newString);
+  if (count === 1) {
+    return number;
+  }
+  return number;
 }
 
 /**
@@ -282,8 +326,140 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  let leftCount = 0;
+  let rightCount = 0;
+  let countLeftBracket = 0;
+  let countRightBracket = 0;
+  let countLeftSquareBracket = 0;
+  let countRightSquareBracket = 0;
+  let countLeftCurlyBracket = 0;
+  let countRightCurlyBracket = 0;
+  let countRightTriangularBracket = 0;
+  let countLeftTriangularBracket = 0;
+  let balanceBracketА = 0;
+  let balanceSquareBracketА = 0;
+  let balanceCurlyBracketА = 0;
+  let balanceTriangularBracketА = 0;
+  let balanceBracketB = 0;
+  let balanceSquareBracketB = 0;
+  let balanceCurlyBracketB = 0;
+  let balanceTriangularBracketB = 0;
+  const totalChar = 4;
+  for (let i = 0; i < str.length; i += 1) {
+    if (
+      str[i] === '[' ||
+      str[i] === '{' ||
+      str[i] === '(' ||
+      str[i] === '<' ||
+      str[i] === ''
+    ) {
+      leftCount += 1;
+      for (let j = 0; j < totalChar; j += 1) {
+        switch (str[i]) {
+          case '(':
+            countLeftBracket += 1;
+            balanceBracketА += 1;
+            break;
+          case '[':
+            countLeftSquareBracket += 1;
+            balanceSquareBracketА += 1;
+            break;
+          case '{':
+            countLeftCurlyBracket += 1;
+            balanceCurlyBracketА += 1;
+            break;
+          case '<':
+            countLeftTriangularBracket += 1;
+            balanceTriangularBracketА += 1;
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    if (
+      str[i] === ']' ||
+      str[i] === '}' ||
+      str[i] === ')' ||
+      str[i] === '>' ||
+      str[i] === ''
+    ) {
+      rightCount += 1;
+      for (let j = 0; j < totalChar; j += 1) {
+        switch (str[i]) {
+          case ')':
+            countRightBracket += 1;
+            balanceBracketB += 1;
+            if (balanceBracketА < balanceBracketB) {
+              return false;
+            }
+            break;
+          case ']':
+            countRightSquareBracket += 1;
+            balanceSquareBracketB += 1;
+            if (balanceSquareBracketА < balanceSquareBracketB) {
+              return false;
+            }
+            break;
+          case '}':
+            countRightCurlyBracket += 1;
+            balanceCurlyBracketB += 1;
+            if (balanceCurlyBracketА < balanceCurlyBracketB) {
+              return false;
+            }
+            break;
+          case '>':
+            countRightTriangularBracket += 1;
+            balanceTriangularBracketB += 1;
+            if (balanceTriangularBracketА < balanceTriangularBracketB) {
+              return false;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
+
+  let delayBracket = 0;
+  let distanceBracket = 0;
+
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === '[') {
+      for (let j = i + 1; j < str.length; j += 1) {
+        if (str[j] === '[') {
+          delayBracket += 1;
+        }
+        if (str[j] === ']') {
+          if (delayBracket === 0) {
+            if (distanceBracket % 2 === 0) {
+              break;
+            } else {
+              return false;
+            }
+          } else {
+            delayBracket -= 1;
+          }
+        }
+      }
+    }
+    distanceBracket += 1;
+  }
+
+  if (
+    (leftCount === rightCount &&
+      countLeftBracket === countRightBracket &&
+      countRightSquareBracket === countLeftSquareBracket &&
+      countLeftCurlyBracket === countRightCurlyBracket &&
+      countRightTriangularBracket === countLeftTriangularBracket) ||
+    str === ''
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /**
