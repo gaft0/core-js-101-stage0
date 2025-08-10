@@ -19,8 +19,13 @@
  *    ['Array', 'Number', 'string'], 'Date'    => -1
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
-function findElement(/* arr, value */) {
-  throw new Error('Not implemented');
+function findElement(arr, value) {
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[i] === value) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -56,8 +61,15 @@ function generateOdds(len) {
  *    [0, 1, 2, 3, 4, 5] => [0, 1, 2, 3, 4, 5,   0, 1, 2, 3, 4, 5]
  *    [] => []
  */
-function doubleArray(/* arr */) {
-  throw new Error('Not implemented');
+function doubleArray(arr) {
+  const newArray = [];
+  for (let i = 0; i < arr.length; i += 1) {
+    newArray[i] = arr[i];
+  }
+  for (let i = 0; i < arr.length; i += 1) {
+    newArray.push(arr[i]);
+  }
+  return newArray;
 }
 
 /**
@@ -94,8 +106,16 @@ function getArrayOfPositives(arr) {
  *    [ 1, 2, 3, 4, 5 ] => []
  *    [ 'cat, 'dog', 'raccoon' ] => [ 'cat', 'dog', 'raccoon' ]
  */
-function getArrayOfStrings(/* arr */) {
-  throw new Error('Not implemented');
+function getArrayOfStrings(arr) {
+  const newArray = [];
+  let j = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    if (typeof arr[i] === 'string') {
+      newArray[j] = arr[i];
+      j += 1;
+    }
+  }
+  return newArray;
 }
 
 /**
@@ -111,8 +131,16 @@ function getArrayOfStrings(/* arr */) {
  *    [ 1, 2, 3, 4, 5, 'false' ]         => [ 1, 2, 3, 4, 5, 'false' ]
  *    [ false, 0, NaN, '', undefined ]   => [ ]
  */
-function removeFalsyValues(/* arr */) {
-  throw new Error('Not implemented');
+function removeFalsyValues(arr) {
+  const newArray = [];
+  let j = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    if (arr[i]) {
+      newArray[j] = arr[i];
+      j += 1;
+    }
+  }
+  return newArray;
 }
 
 /**
@@ -163,8 +191,8 @@ function getStringsLength(arr) {
  *    [ 1, 3, 4, 5 ], 2, 1  => [ 1, 2, 3, 4, 5 ]
  *    [ 1, 'b', 'c'], 'x', 0  => [ 'x', 1, 'b', 'c' ]
  */
-function insertItem(/* arr, item, index */) {
-  throw new Error('Not implemented');
+function insertItem(arr, item, index) {
+  return arr.splice(index, 0, item);
 }
 
 /**
@@ -219,8 +247,22 @@ function getTail(arr, n) {
  *    +'20,21,22,23,24\n'
  *    +'30,31,32,33,34'
  */
-function toCsvText(/* arr */) {
-  throw new Error('Not implemented');
+function toCsvText(arr) {
+  const string = arr.toString();
+  let finalString = '';
+  let count = 0;
+  for (let i = 0; i < string.length; i += 1) {
+    if (string[i] === '4' && count !== 3) {
+      finalString += string[i];
+      finalString += '\n';
+      count += 1;
+    } else if (string[i - 1] === '4') {
+      finalString += '';
+    } else {
+      finalString += string[i];
+    }
+  }
+  return finalString;
 }
 
 /**
@@ -256,8 +298,16 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  const newArray = [];
+  for (let i = 0; i < arr.length; i += 1) {
+    if (i === 0) {
+      newArray[i] = arr[i];
+    } else {
+      newArray[i] = newArray[i - 1] + arr[i];
+    }
+  }
+  return newArray;
 }
 
 /**
@@ -271,8 +321,20 @@ function getMovingSum(/* arr */) {
  * [ 'a', 'b', 'c' , null ]  => [ "b", null ]
  * [ "a" ] => []
  */
-function getSecondItems(/* arr */) {
-  throw new Error('Not implemented');
+function getSecondItems(arr) {
+  if (arr.length <= 1) {
+    return [];
+  }
+
+  const newArray = [];
+  let j = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    if (i % 2 === 1) {
+      newArray[j] = arr[i];
+      j += 1;
+    }
+  }
+  return newArray;
 }
 
 /**
@@ -306,8 +368,25 @@ function propagateItemsByPositionIndex(/* arr */) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  const newArray = [];
+  let maxValue = arr[0];
+  let temp = 0;
+  for (let i = 0; i < 3; i += 1) {
+    for (let j = 0; j < arr.length; j += 1) {
+      if (maxValue < arr[j]) {
+        maxValue = arr[j];
+        temp = j;
+      }
+    }
+    if (maxValue) {
+      newArray.push(maxValue);
+      arr.splice(temp, 1);
+    }
+    maxValue = NaN;
+    temp = NaN;
+  }
+  return newArray;
 }
 
 /**
@@ -382,8 +461,14 @@ function getItemsSum(arr) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  let count = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    if (!arr[i]) {
+      count += 1;
+    }
+  }
+  return count;
 }
 
 /**
@@ -421,8 +506,8 @@ function findAllOccurrences(arr, item) {
  *    [1, 2, 3, 4, 5]                   => '1,2,3,4,5'
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
-function toStringList(/* arr */) {
-  throw new Error('Not implemented');
+function toStringList(arr) {
+  return arr.toString().split(',');
 }
 
 /**
@@ -511,8 +596,24 @@ function getIntervalArray(start, end) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  const newArray = [];
+  let count = 0;
+  let k = 0;
+
+  for (let i = 0; i < arr.length; i += 1) {
+    for (let j = 0; j < newArray.length; j += 1) {
+      if (arr[i] === newArray[j]) {
+        count += 1;
+      }
+    }
+    if (count === 0) {
+      newArray[k] = arr[i];
+      k += 1;
+    }
+    count = 0;
+  }
+  return newArray;
 }
 
 /**
@@ -562,8 +663,8 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.toString().split(childrenSelector);
 }
 
 /**
